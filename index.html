@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natumpy Documentation</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #004494;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --code-bg: #2d2d2d;
+            --code-text: #f8f8f2;
+            --sidebar-width: 250px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: var(--sidebar-width);
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        nav h1 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin-bottom: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            display: block;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        nav a:hover {
+            background-color: #e9ecef;
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        /* Code Blocks */
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #d63384;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f3f5;
+        }
+
+        .note {
+            background-color: #e7f5ff;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #ddd; }
+            main { margin-left: 0; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>natumpy</h1>
+    <ul>
+        <li><a href="#intro">Pengenalan</a></li>
+        <li><a href="#install">Instalasi</a></li>
+        <li><a href="#concepts">Konsep Inti</a></li>
+        <li><a href="#quickstart">Panduan Cepat</a></li>
+        <li><a href="#api">API Reference</a></li>
+        <li><a href="#examples">Contoh Lanjut</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="intro">
+        <h1>Dokumentasi Natumpy</h1>
+        <p><strong>Natumpy</strong> adalah pustaka eksperimen numerik hibrida Python/C++ yang dirancang untuk simulasi fisika partikel berbasis <em>Damped Harmonic Oscillator</em> dengan performa tinggi.</p>
+        <p>Fitur Utama:</p>
+        <ul>
+            <li><strong>Inti C++ Berkinerja Tinggi:</strong> Menangani kalkulasi fisika (kecepatan, gaya, redaman) di level rendah.</li>
+            <li><strong>Integrasi NumPy Zero-Copy:</strong> Data fisika diakses langsung oleh Python tanpa penyalinan memori, memungkinkan analisis data *real-time* yang sangat cepat.</li>
+            <li><strong>Thread-Safe:</strong> Mendukung komputasi paralel pada level C++.</li>
+        </ul>
+    </section>
+
+    <section id="install">
+        <h2>Instalasi</h2>
+        <p>Natumpy memerlukan kompilator C++17 dan pustaka pengembangan Python.</p>
+        
+        <h3>Prasyarat</h3>
+        <pre><code>pip install numpy setuptools</code></pre>
+
+        <h3>Build dari Sumber</h3>
+        <pre><code># 1. Clone repositori atau ekstrak source code
+# 2. Masuk ke direktori root
+cd natumpy/
+
+# 3. Install dalam mode development atau production
+pip install .</code></pre>
+        
+        <div class="warning">
+            <strong>Penting:</strong> Pastikan Anda telah memperbaiki file <code>natumpy/__init__.py</code> untuk menyertakan definisi <code>NAT_DTYPE</code> agar fitur <em>structured array</em> berfungsi dengan benar.
+        </div>
+    </section>
+
+    <section id="concepts">
+        <h2>Konsep Inti</h2>
+        <p>Natumpy memodelkan sekumpulan atom dalam 1D array. Setiap atom memiliki struktur memori 40-byte:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Tipe Data</th>
+                    <th>Deskripsi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>value</code></td>
+                    <td>float64</td>
+                    <td>Posisi atom saat ini.</td>
+                </tr>
+                <tr>
+                    <td><code>velocity</code></td>
+                    <td>float64</td>
+                    <td>Kecepatan gerak atom.</td>
+                </tr>
+                <tr>
+                    <td><code>mass</code></td>
+                    <td>float64</td>
+                    <td>Massa atom (semakin berat, semakin lambat bereaksi). Default: 1.0.</td>
+                </tr>
+                <tr>
+                    <td><code>damping</code></td>
+                    <td>float64</td>
+                    <td>Faktor redaman (0.0 - 1.0). Mengurangi energi sistem.</td>
+                </tr>
+                <tr>
+                    <td><code>target</code></td>
+                    <td>float64</td>
+                    <td>Titik kesetimbangan yang ingin dicapai atom.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="quickstart">
+        <h2>Panduan Cepat</h2>
+        <p>Contoh sederhana membuat satu atom bergerak menuju targetnya.</p>
+
+        <pre><code class="language-python">import natumpy
+import numpy as np
+import time
+
+# 1. Buat field dengan 10 atom
+field = natumpy.create_field(10)
+
+# 2. Dapatkan view NumPy (Manipulasi properti)
+arr = natumpy.view(field)
+
+# Set properti awal
+arr['mass'][:] = 2.0        # Set massa semua atom
+arr['damping'][:] = 0.05    # Sedikit redaman
+arr['target'][5] = 100.0    # Atom ke-5 ingin pergi ke posisi 100
+
+print(f"Posisi Awal Atom 5: {arr['value'][5]:.2f}")
+
+# 3. Jalankan Simulasi
+# 500 siklus fisika dengan delta time 0.1
+field.step(500, 0.1)
+
+print(f"Posisi Akhir Atom 5: {arr['value'][5]:.2f}")
+print(f"Kecepatan Akhir: {arr['velocity'][5]:.2f}")</code></pre>
+    </section>
+
+    <section id="api">
+        <h2>API Reference</h2>
+
+        <h3><code>natumpy.create_field(size)</code></h3>
+        <p>Membuat instance mesin fisika baru.</p>
+        <ul>
+            <li><strong>size</strong> (int): Jumlah atom yang akan disimulasikan.</li>
+            <li><strong>Returns:</strong> Objek <code>NatField</code>.</li>
+        </ul>
+
+        <h3><code>natumpy.view(field)</code></h3>
+        <p>Membuat NumPy array terstruktur yang menunjuk ke memori C++ field tersebut.</p>
+        <ul>
+            <li><strong>Returns:</strong> <code>numpy.ndarray</code> dengan dtype khusus (value, velocity, mass, damping, target).</li>
+        </ul>
+
+        <h3>Metode Objek <code>NatField</code></h3>
+
+        <h4><code>.step(cycles, dt)</code></h4>
+        <p>Menjalankan langkah simulasi fisika.</p>
+        <ul>
+            <li><strong>cycles</strong> (int): Berapa kali loop fisika dijalankan.</li>
+            <li><strong>dt</strong> (float): Delta time (langkah waktu). Default: 0.1.</li>
+        </ul>
+
+        <h4><code>.set_props(index, mass, damping)</code></h4>
+        <p>Mengatur properti fisik atom tertentu secara manual (alternatif dari penggunaan NumPy view).</p>
+
+        <h4><code>.resonate(idx_a, idx_b, strength)</code></h4>
+        <p>Menciptakan kopling (hubungan gaya) antara dua atom. Jika atom A bergerak, atom B akan terpengaruh, dan sebaliknya.</p>
+        <ul>
+            <li><strong>strength</strong> (float): Kekuatan hubungan antarat atom.</li>
+        </ul>
+        
+        <h4><code>.force(index, value)</code></h4>
+        <p>Memaksa posisi atom ke nilai tertentu dan me-reset kecepatannya menjadi 0.</p>
+    </section>
+
+    <section id="examples">
+        <h2>Contoh Lanjut: Simulasi Gelombang</h2>
+        <p>Berikut adalah contoh bagaimana membuat simulasi gelombang mekanik sederhana dengan menghubungkan atom tetangga menggunakan <code>resonate</code>.</p>
+
+        <pre><code class="language-python">import natumpy
+import numpy as np
+
+SIZE = 100
+field = natumpy.create_field(SIZE)
+arr = natumpy.view(field)
+
+# Konfigurasi Awal
+arr['damping'][:] = 0.01  # Redaman sangat rendah agar gelombang menjalar
+arr['mass'][:] = 1.0
+
+# Buat gangguan awal di tengah
+field.force(50, 50.0) 
+
+print("Simulasi Gelombang Dimulai...")
+
+# Loop simulasi
+for t in range(10):
+    # 1. Resonansi: Hubungkan setiap atom dengan tetangganya
+    # Ini menciptakan efek "tali" atau "pegas" antar atom
+    for i in range(SIZE - 1):
+        field.resonate(i, i+1, 0.5) # Strength 0.5
+    
+    # 2. Langkah Fisika
+    field.step(10, 0.1)
+    
+    # 3. Output visual sederhana (ASCII art)
+    peak = np.argmax(arr['value'])
+    val = arr['value'][peak]
+    print(f"Step {t}: Puncak gelombang di index {peak} (Tinggi: {val:.2f})")
+</code></pre>
+    </section>
+
+    <div class="footer">
+        &copy; 2026 Eternals. Dilisensikan di bawah MIT License.<br>
+        Dokumentasi dibuat secara otomatis untuk Natumpy v3.1.0
+    </div>
+</main>
+
+</body>
+</html>
